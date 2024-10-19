@@ -5,7 +5,7 @@
     <title>Memory Match-Up</title>
     <style>
         body {
-            background: linear-gradient(270deg, #ff7e5f, #feb47b);
+            background: linear-gradient(270deg, #6a9eff, #a1c4fd);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;        
             color: cyan;
@@ -13,10 +13,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            justify-content: flex-start; /* Changed to flex-start for scrolling */
+            height: auto; /* Allow content to define height */
+            min-height: 100vh; /* Ensure at least full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
             margin: 0;
+            padding: 20px; /* Add padding for better layout */
         }
 
         @keyframes gradient {
@@ -30,26 +32,22 @@
             text-shadow: 0 0 5px black, 0 0 10px cyan, 0 0 15px cyan, 0 0 20px blue;
         }
 
-        input[type="number"] {
+        input[type="number"], button {
             padding: 10px;
-            border: none;
+            border: none; /* Remove border */
             border-radius: 5px;
             margin-right: 10px;
-            width: 80px;
             background-color: rgba(0, 0, 0, 0.7);
             color: cyan;
             box-shadow: 0 0 5px cyan;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            outline: none; /* Remove focus outline */
         }
 
         button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
             background-color: rgba(0, 128, 128, 0.8);
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 5px cyan;
         }
 
         button:hover {
@@ -60,10 +58,11 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 800px; /* Max width for larger screens */
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: auto; /* Center the container */
         }
 
         .game-board {
