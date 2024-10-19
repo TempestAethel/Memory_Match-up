@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: cyan;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 60px;
+            background-color: #333;
+            color: cyan;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: teal;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: cyan;
+            color: black;
+        }
+        .game-board {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .card.flipped {
+            color: white;
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Memory Card Game</h1>
+    <div>
+        <input type="number" id="cardCount" min="2" max="50" value="5" placeholder="No. of pairs">
+        <button id="startButton">Start Game</button>
+    </div>
+    <div class="game-board" id="gameBoard"></div>
+
+    <script>
+        const cards = [
+            "🌙", "🌟", "🌈", "🌊", "🌻", "🔮", "🍂", "🌌", "🌱", "🦋",
+            "🐚", "🌳", "❄️", "🌸", "🐉", "🎋", "🍁", "🌼", "🎆", "🦄",
+            "⚡", "🌍", "🔥", "🍀", "🌠", "🐾", "🗺️", "⛰️", "🎨", "🌧️",
+            "🌞", "🕊️", "🥥", "🎶", "🎈", "🧚‍♀️", "🌐", "🌕", "🏔️", "🔔",
+            "🐬", "🚀", "🍒", "💫", "🥇", "⚓", "🌿", "🔑", "🧊", "🏝️",
+            "🦅", "🎃", "🎩", "🏞️", "🧞‍♂️", "🏕️", "⛷️", "🚴‍♂️", "🧗‍♀️", "🎳",
+            "🏹", "🎿", "🚤", "🥨", "🍕", "🍔", "🌭", "🍩", "🍦", "🍉",
+            "🌽", "🍇", "🍏", "🥭", "🍍", "🍓", "🍋", "🥝", "🌶️", "🌰",
+            "🍈", "🥥", "🥑", "🍊", "🌴", "🏄‍♀️", "🧜‍♀️", "🐢", "🐙", "🦈",
+            "🌋", "🧙‍♂️", "🌌", "🔥", "🐾", "🥳"
+        ];
+
+        document.getElementById("startButton").addEventListener("click", function() {
+            const count = Math.min(Math.max(parseInt(document.getElementById("cardCount").value) * 2, 2), 100);
+            const uniquePairs = count / 2;
+
+            const selectedCards = cards.slice(0, uniquePairs);
+            const shuffledCards = [...selectedCards, ...selectedCards].sort(() => Math.random() - 0.5);
+            const gameBoard = document.getElementById("gameBoard");
+            gameBoard.innerHTML = '';
+            gameBoard.style.display = 'grid';
+
+            shuffledCards.forEach((card) => {
+                const cardElement = document.createElement("div");
+                cardElement.classList.add("card");
+                cardElement.setAttribute("data-card", card);
+                cardElement.addEventListener("click", flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        });
+
+        let firstCard, secondCard;
+        let lockBoard = false;
+
+        function flipCard() {
+            if (lockBoard) return;
+            this.classList.add("flipped");
+            this.textContent = this.getAttribute("data-card");
+
+            if (!firstCard) {
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            lockBoard = true;
+
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            const isMatch = firstCard.getAttribute("data-card") === secondCard.getAttribute("data-card");
+            isMatch ? resetBoard() : unflipCards();
+        }
+
+        function unflipCards() {
+            setTimeout(() => {
+                firstCard.classList.remove("flipped");
+                secondCard.classList.remove("flipped");
+                firstCard.textContent = '';
+                secondCard.textContent = '';
+                resetBoard();
+            }, 1500);
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard, lockBoard] = [null, null, false];
+        }
+    </script>
+</body>
+</html>
