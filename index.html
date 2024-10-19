@@ -13,75 +13,62 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Changed to flex-start for scrolling */
-            height: auto; /* Allow content to define height */
-            min-height: 100vh; /* Ensure at least full viewport height */
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
             margin: 0;
-            padding: 20px; /* Add padding for better layout */
-        }
+         }
 
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
 
+        }
         h1 {
             margin-bottom: 20px;
-            text-shadow: 0 0 5px black, 0 0 10px cyan, 0 0 15px cyan, 0 0 20px blue;
         }
-
-        input[type="number"], button {
+        input[type="number"] {
             padding: 10px;
-            border: none; /* Remove border */
+            border: none;
             border-radius: 5px;
             margin-right: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
+            width: 80px;
+            background-color: #333;
             color: cyan;
-            box-shadow: 0 0 5px cyan;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            outline: none; /* Remove focus outline */
         }
-
         button {
-            background-color: rgba(0, 128, 128, 0.8);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: teal;
             color: white;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-
         button:hover {
             background-color: cyan;
             color: black;
-            box-shadow: 0 0 15px blue, 0 0 20px cyan;
         }
-
         .container {
             width: 100%;
-            max-width: 800px; /* Max width for larger screens */
+            max-width: 800px; /* Adjusted max-width for larger screens */
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: auto; /* Center the container */
         }
-
         .game-board {
             display: none; /* Initially hidden */
             margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Dynamic columns */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 10px;
             width: 100%;
-            max-width: 100vw; /* Fill the screen width */
-            box-sizing: border-box; /* Include padding and borders */
         }
-
         .card {
-            width: 100%; /* Fill grid cell */
-            height: 0; /* Remove fixed height */
-            padding-top: 100%; /* Maintain square aspect ratio */
+            width: 100px;
+            height: 100px;
             background-color: #444;
-            position: relative; /* For absolute positioning of content */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -91,22 +78,17 @@
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s, border 0.3s;
         }
-
         .card.flipped {
             color: white;
             background-color: #555;
         }
-
         .card.match {
             border: 3px solid cyan;
         }
-
         .timer {
             margin-top: 10px;
             color: teal;
-            text-shadow: 0 0 5px black, 0 0 10px cyan;
         }
-
         .toast {
             position: absolute;
             bottom: 20px; /* Positioned below center */
@@ -118,7 +100,6 @@
             border-radius: 5px;
             display: none;
             transition: opacity 0.5s;
-            box-shadow: 0 0 10px cyan;
         }
     </style>
 </head>
